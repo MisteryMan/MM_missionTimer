@@ -14,7 +14,6 @@
 	let missionTimerOrig = missionTimer;
 
 	missionTimer = function(t){
-        if (t.vehicle_state == "2") {
             var einsatzdauer = t.date_end * 1000 - new Date().getTime();
             if (einsatzdauer > 0) {
                 var time = new Date(einsatzdauer - (1000 * 60 * 60));
@@ -53,7 +52,6 @@
                     }
                 }
             }
-        }
 		missionTimerOrig(t);
 	};
 })();
