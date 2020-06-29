@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
@@ -10,7 +10,7 @@
 
 (function() {
 	'use strict';
-    $("head").append("<style type='text/css'>.countdownTimer { color: #fff; margin: 3px; display: inline; border-radius: .25em; padding: 2px; padding-left: 4px; padding-right: 4px; text-align: center;}</style>");
+    $("head").append("<style type='text/css'>.countdownTimer { color: #fff; margin: 3px; display: inline; border-radius: .25em; padding: 2px; padding-left: 4px; padding-right: 4px; text-align: center;} div.mission_overview_countdown:empty { display:none; }</style>");
 	let missionTimerOrig = missionTimer;
 
 	missionTimer = function(t){
