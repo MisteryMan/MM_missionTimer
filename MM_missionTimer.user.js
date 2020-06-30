@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.2
+// @version      1.1.3
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
@@ -53,7 +53,7 @@
                     }
                 }
             }
-            else if (document.getElementById("mission_overview_countdown_header_" + t.id).innerHTML == null) { document.getElementById("mission_overview_countdown_header_" + t.id).removeClass("label-danger"); }
+            else if (document.getElementById("mission_overview_countdown_" + t.id).innerHTML == "") { document.getElementById("mission_overview_countdown_" + t.id).remove(); }
         }
 		missionTimerOrig(t);
 	};
