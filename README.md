@@ -12,6 +12,11 @@ Example/Voorbeeld:
 
 # Changelog:
 
+## [1.1.3] June 30, 2020
+
+### [Changed]
+- Found a cleaner method of removing the timer element once the timer runs out.
+
 ## [1.1.2] June 29, 2020
 
 ### [Added]
