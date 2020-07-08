@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.3
+// @version      1.1.4
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
@@ -10,11 +10,10 @@
 
 (function() {
 	'use strict';
-    $("head").append("<style type='text/css'>.countdownTimer { color: #fff; margin: 3px; display: inline; border-radius: .25em; padding: 2px; padding-left: 4px; padding-right: 4px; text-align: center;} div.mission_overview_countdown:empty { display:none; }</style>");
+    $("head").append("<style type='text/css'>.countdownTimer { color: #fff; min-width: 50px; margin-left: 5px; margin-right: 5px; display: inline-block; border-radius: .25em; vertical-align: middle; padding-left: 4px; padding-right: 4px; text-align: center;} div.mission_overview_countdown:empty { display:none; }</style>");
 	let missionTimerOrig = missionTimer;
 
 	missionTimer = function(t){
-        if (t.icon.includes("gruen") || t.icon.includes("green")) {
             var einsatzdauer = t.date_end * 1000 - new Date().getTime();
             if (einsatzdauer > 0) {
                 var time = new Date(einsatzdauer - (1000 * 60 * 60));
@@ -41,8 +40,8 @@
                 } else {
                     timeFormated += "00";
                 }
-                if (!$("#mission_overview_countdown_" + t.id).hasClass("mission_overview_countdown countdownTimer label-danger")) {
-                    $("#mission_caption_" + t.id).before('<div class="mission_overview_countdown countdownTimer label-danger" id="mission_overview_countdown_' + t.id + '" timeleft="0"></div>');
+                if (!$("#mission_overview_countdown_" + t.id).hasClass("mission_overview_countdown countdownTimer label-success label")) {
+                    $("#mission_caption_" + t.id).before('<div class="mission_overview_countdown countdownTimer label-success label" id="mission_overview_countdown_' + t.id + '" timeleft="0"></div>');
                 }
                 $('#mission_overview_countdown_' + t.id).html(timeFormated);
                 if ($('#mission_out_' + t.id)[0]) {
@@ -54,7 +53,7 @@
                 }
             }
             else if (document.getElementById("mission_overview_countdown_" + t.id).innerHTML == "") { document.getElementById("mission_overview_countdown_" + t.id).remove(); }
-        }
+
 		missionTimerOrig(t);
 	};
     function removeElement(id) {
