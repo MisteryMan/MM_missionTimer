@@ -15,7 +15,7 @@
 
 	missionTimer = function(t){
             var einsatzdauer = t.date_end * 1000 - new Date().getTime();
-			console.log("Mission ID: " + t.id + " remaining time: " + einsatzdauer);
+			
             if (einsatzdauer > 0) {
                 var time = new Date(einsatzdauer - (1000 * 60 * 60));
                 var timeFormated = "";
@@ -41,6 +41,7 @@
                 } else {
                     timeFormated += "00";
                 }
+				console.log("Mission ID: " + t.id + " remaining time: " + timeFormated);
                 if (!$("#mission_overview_countdown_" + t.id).hasClass("mission_overview_countdown countdownTimer label-success label")) {
                     $("#mission_caption_" + t.id).before('<div class="mission_overview_countdown countdownTimer label-success label" id="mission_overview_countdown_' + t.id + '" timeleft="0"></div>');
                 }
