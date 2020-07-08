@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.4
+// @version      1.1.4.1
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
