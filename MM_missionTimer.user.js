@@ -27,11 +27,8 @@
             var timeFormated = "";
             if (time.getHours() != 0) {
                 if ((timezoneOffset / 60) > 0) {
-                    var timeHours = time.getHours() + (timezoneOffset / 60);
-					if (timeHours == 24) {
-						timeHours == 0;
-					}
-                    else if (timeHours < 10) {
+                    var timeHours = (time.getHours() - 24) + (timezoneOffset / 60);
+					if (timeHours < 10) {
                         timeFormated += "0";
                     }
 					
