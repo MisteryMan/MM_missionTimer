@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.4.2
+// @version      1.1.4.3
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
@@ -27,10 +27,14 @@
             var timeFormated = "";
             if (time.getHours() != 0) {
                 if ((timezoneOffset / 60) > 0) {
-                    timeHours = time.getHours() + (timezoneOffset / 60);
-                    if (timeHours < 10) {
+                    var timeHours = time.getHours() + (timezoneOffset / 60);
+					if (timeHours == 24) {
+						timeHours == 0;
+					}
+                    else if (timeHours < 10) {
                         timeFormated += "0";
                     }
+					
                     timeFormated += timeHours + ':';
                 }
                 else {
