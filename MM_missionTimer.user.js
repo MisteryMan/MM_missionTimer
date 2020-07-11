@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.1.4.3
+// @version      1.2
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
+// @downloadURL  https://github.com/MisteryMan/MM_missionTimer/raw/master/MM_missionTimer.user.js
 // @include      /^https?:\/\/(?:w{3}\.)?(?:leitstellenspiel\.de|(?:meldkamerspel|missionchief|missionchief-australia|nodsentralspillet|112-merkez|jogo-operador112|operador193|dyspetcher101-game|missionchief-japan|jocdispecerat112|missionchief-korea|hatakeskuspeli|dispecerske-centrum)\.com|missionchief\.co\.uk|centro-de-mando\.es|operatorratunkowy\.pl|larmcentralen-spelet\.se|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|operacni-stredisko\.cz|centro-de-mando\.mx)\/.*$/
 // ==/UserScript==
 
@@ -25,21 +26,15 @@
         if (einsatzdauer > 0) {
             var time = new Date(einsatzdauer - (1000 * 60 * 60));
             var timeFormated = "";
-            if (time.getHours() != 0) {
-                if ((timezoneOffset / 60) > 0) {
-                    var timeHours = (time.getHours() - 24) + (timezoneOffset / 60);
-					if (timeHours < 10) {
-                        timeFormated += "0";
-                    }
-					
-                    timeFormated += timeHours + ':';
+			if ((timezoneOffset / 60) > 0 ) {
+				var timeHours = (time.getHours() - 24) + (timezoneOffset / 60);
+			}
+			else { var timeHours = time.getHours(); }
+            if (timeHours != 0) {
+                if (timeHours < 10) {
+                    timeFormated += "0";
                 }
-                else {
-                    if (time.getHours() < 10) {
-                        timeFormated += "0";
-                    }
-                    timeFormated += time.getHours() + ':';
-                }
+                timeFormated += timeHours + ':';
             }
             if (time.getMinutes() != 0) {
                 if (time.getMinutes() < 10) {
