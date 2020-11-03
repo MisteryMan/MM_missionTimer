@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.2.1
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
@@ -15,7 +15,7 @@
     let missionTimerOrig = missionTimer;
 
     missionTimer = function(t){
-        var serverTimezoneOffset = -120;
+        var serverTimezoneOffset = -60;
         var userTimezoneOffset = new Date().getTimezoneOffset();
         const diff = (a, b) => {
             return Math.abs(a - b);
