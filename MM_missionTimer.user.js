@@ -20,6 +20,7 @@
         var serverTimezoneOffset = "02";
         var userTimezoneOffset = getTimeZone();
         var timezoneOffset = serverTimezoneOffset - userTimezoneOffset;
+
         //console.log("Server: " + serverTimezoneOffset + ". User: " + userTimezoneOffset + ". Diff: " + timezoneOffset);
         var einsatzdauer = t.date_end * 1000 - new Date().getTime();
         if (einsatzdauer > 0) {
