@@ -1,11 +1,10 @@
 // ==UserScript==
 // @name         MC-MissionTimer
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.2.4
 // @description  Original script by KBOE2, modified and republished with permission. This version adds the mission timer to the mission header in the mission list.
 // @author       MisteryMan
 // @grant        none
-// @downloadURL  https://github.com/MisteryMan/MM_missionTimer/raw/master/MM_missionTimer.user.js
 // @include      /^https?:\/\/(?:w{3}\.)?(?:leitstellenspiel\.de|(?:meldkamerspel|missionchief|missionchief-australia|nodsentralspillet|112-merkez|jogo-operador112|operador193|dyspetcher101-game|missionchief-japan|jocdispecerat112|missionchief-korea|hatakeskuspeli|dispecerske-centrum)\.com|missionchief\.co\.uk|centro-de-mando\.es|operatorratunkowy\.pl|larmcentralen-spelet\.se|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|operacni-stredisko\.cz|centro-de-mando\.mx)\/.*$/
 // ==/UserScript==
 
@@ -13,28 +12,35 @@
     'use strict';
     $("head").append("<style type='text/css'>.countdownTimer { color: #fff; min-width: 50px; margin-left: 5px; margin-right: 5px; display: inline-block; border-radius: .25em; vertical-align: middle; padding-left: 4px; padding-right: 4px; text-align: center;} div.mission_overview_countdown:empty { display:none; }</style>");
     let missionTimerOrig = missionTimer;
-
+    function getTimeZone() {
+        var offset = new Date().getTimezoneOffset(), o = Math.abs(offset);
+        return (offset < 0 ? "+" : "-") + ("00" + Math.floor(o / 60)).slice(-2);
+    }
     missionTimer = function(t){
-        var serverTimezoneOffset = -60;
-        var userTimezoneOffset = new Date().getTimezoneOffset();
-        const diff = (a, b) => {
-            return Math.abs(a - b);
-        }
-        var timezoneOffset = diff(serverTimezoneOffset, userTimezoneOffset);
+        var serverTimezoneOffset = "02";
+        var userTimezoneOffset = getTimeZone();
+        var timezoneOffset = serverTimezoneOffset - userTimezoneOffset;
+
         //console.log("Server: " + serverTimezoneOffset + ". User: " + userTimezoneOffset + ". Diff: " + timezoneOffset);
         var einsatzdauer = t.date_end * 1000 - new Date().getTime();
         if (einsatzdauer > 0) {
             var time = new Date(einsatzdauer - (1000 * 60 * 60));
             var timeFormated = "";
-			if ((timezoneOffset / 60) > 0 ) {
-				var timeHours = (time.getHours() - 24) + (timezoneOffset / 60);
-			}
-			else { var timeHours = time.getHours(); }
-            if (timeHours != 0) {
-                if (timeHours < 10) {
-                    timeFormated += "0";
+			var timeHours = time.getHours() + timezoneOffset;
+			if (timeHours == "24") { timeHours = 0; }
+            if (time.getHours() != 0 && timeHours != 0) {
+                if (timezoneOffset > 0) {
+                    if (timeHours < 10) {
+                        timeFormated += "0";
+                    }
+					if (timeHours < 24) { timeFormated += timeHours + ':'; }
                 }
-                timeFormated += timeHours + ':';
+                else {
+                    if (time.getHours() < 10) {
+                        timeFormated += "0";
+                    }
+                    timeFormated += time.getHours() + ':';
+                }
             }
             if (time.getMinutes() != 0) {
                 if (time.getMinutes() < 10) {
